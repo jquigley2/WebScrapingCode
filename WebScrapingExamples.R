@@ -7,10 +7,13 @@ library(viridis)
 #---------------------------
 # SCRAPE DATA FROM CrueltyFreeInvesting.org
 #---------------------------
+#Define the page
 url <- "http://crueltyfreeinvesting.org/"
 
+#Read the page
 CrueltyFreePage <- read_html(url)
 
+#Extract tickers from the CSS, determined by using SelectorGadget
 (html_nodes(CrueltyFreePage, ".cfi_left_comp_list .company-symbol b"))
 
 AnimalExploiters <- html_text((html_nodes(CrueltyFreePage, ".cfi_left_comp_list .company-symbol b")))
@@ -162,4 +165,32 @@ webpage <- read_html(url)
 rank_data_html <- html_nodes(webpage, '.cfi_left_comp_list') %>%
   #Then select the "company-symbol" from that left-hand table:
   html_nodes('.company-symbol')
+
+
+
+################# Extract from a PDF ###################
+#https://datascienceplus.com/extracting-tables-from-pdfs-in-r-using-the-tabulizer-package/
+
+install.packages("tabulizer")
+
+library(tabulizer)
+library(dplyr)
+
+#Set location of the pdf file:
+location <- "https://assets2.hrc.org/files/assets/resources/CEI-2018-FullReport.pdf?_ga=2.211247381.1222537572.1540495430-444890937.1539119897"
+
+#Extract the table:
+?extract_tables
+out <- extract_tables(location)
+
+#Bind the individual tables into one (in this case, tables 40-75 are the relevant tables):
+?do.call
+?rbind
+final <- do.call(rbind, out[-length(out)])
+final <- do.call(rbind, out[40:75]) #these are the relevant tables
+
+#We'd have to map the numbers in the columns to points, as these are just decoded symbols in the tables:
+
+
+
 
