@@ -42,7 +42,7 @@ install.packages("ghit")
 ghit::install_github(c("ropenscilabs/tabulizerjars", "ropenscilabs/tabulizer"))
 library("tabulizer")
 
-
+#######################################################################################################
 #Example 2:
 # https://www.business-science.io/code-tools/2019/09/23/tabulizer-pdf-scraping.html
 #1. Start wtih PDF
@@ -93,11 +93,6 @@ endangered_species_renamed_tbl <-  endangered_species_raw_tbl %>%
 #check result:
 endangered_species_renamed_tbl %>% head() %>% knitr::kable() #generates a very simple table
 
-#we can generate a far nicer table using the formattable package, btw:
-install.packages("formattable")
-library(formattable)
-
-formattable(endangered_species_renamed_tbl)
 
 #Tidy the data:
 endangered_species_final_tbl <- endangered_species_renamed_tbl %>%
@@ -128,8 +123,6 @@ endangered_species_final_tbl <- endangered_species_renamed_tbl %>%
 
 #Show first six rows:
 endangered_species_final_tbl %>% head() %>% knitr::kable()
-
-formattable(endangered_species_final_tbl)
 
 
 #Visualize the Data
